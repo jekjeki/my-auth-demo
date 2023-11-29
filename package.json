@@ -11,7 +11,7 @@
     "bcryptjs": "^2.4.3",
     "mongodb": "^3.6.4",
     "next": "^14.0.3",
-    "next-auth": "^3.4.2",
+    "next-auth": "^4.24.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   }

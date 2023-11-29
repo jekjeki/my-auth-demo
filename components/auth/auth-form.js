@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 
 import classes from './auth-form.module.css';
 
+let msgError = ''
+
+
 async function createUser(email, password) {
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
@@ -16,6 +19,7 @@ async function createUser(email, password) {
   const data = await response.json();
 
   if (!response.ok) {
+    msgError = data.message
     throw new Error(data.message || 'Something went wrong!');
   }
 
@@ -25,6 +29,7 @@ async function createUser(email, password) {
 function AuthForm() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const [errorNotif, setErrorNotif] = useState(false)
 
   const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
@@ -48,6 +53,8 @@ function AuthForm() {
         password: enteredPassword,
       });
 
+      console.log(result)
+
       if (!result.error) {
         // set some auth state
         router.replace('/profile');
@@ -55,9 +62,11 @@ function AuthForm() {
     } else {
       try {
         const result = await createUser(enteredEmail, enteredPassword);
-        console.log(result);
+        // console.log(result);
+        setErrorNotif(false)
       } catch (error) {
         console.log(error);
+        setErrorNotif(true)
       }
     }
   }
@@ -90,6 +99,11 @@ function AuthForm() {
           </button>
         </div>
       </form>
+      <div className={classes.errorStyle}>
+        {errorNotif && (
+          <p>{msgError}</p>
+        )}
+      </div>
     </section>
   );
 }

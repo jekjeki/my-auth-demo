@@ -9,6 +9,13 @@
   text-align: center;
 }
 
+.errorStyle {
+  color: red;
+  border-radius: 5px;
+  width: 100%;
+  background-color: white;
+}
+
 .auth h1 {
   text-align: center;
   color: white;
